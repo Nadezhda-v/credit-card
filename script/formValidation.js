@@ -83,6 +83,7 @@ const controlInputValue = ({
     const existingBrandLogo = document.querySelector('#brand-logo');
     const pathLightColor = document.querySelector('.lightcolor');
     const pathDarkColor = document.querySelector('.darkcolor');
+    const rectangle2 = document.querySelector('#Rectangle-1_2_');
 
     if (target.tagName === 'INPUT' &&
         target.getAttribute('inputmode') === 'numeric') {
@@ -112,6 +113,7 @@ const controlInputValue = ({
       if (numberWithoutSpaces.length < 6) {
         pathLightColor.setAttribute('fill', '#bdbdbd');
         pathDarkColor.setAttribute('fill', '#616161');
+        rectangle2.setAttribute('fill', '#616161');
         if (existingBankLogo) {
           existingBankLogo.remove();
           getBrandInfo(numberWithoutSpaces);
