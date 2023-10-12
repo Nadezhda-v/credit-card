@@ -9,6 +9,26 @@ import {
   getBrandInfo,
 } from './bankIdentifier.js';
 
+const isValidCardNumber = (cardNumber) => {
+  const numberCardPattern = /^[0-9]{16}$/;
+
+  if (!numberCardPattern.test(cardNumber)) {
+    return false;
+  }
+
+  return true;
+};
+
+const isValidCVC = (securityCode) => {
+  const numberCardPattern = /^[0-9]{3}$/;
+
+  if (!numberCardPattern.test(securityCode)) {
+    return false;
+  }
+
+  return true;
+};
+
 const isValidDate = (inputExpirationDateValue) => {
   const datePattern = /^(0[1-9]|1[0-2])\/[0-9]{2}$/;
 
@@ -24,37 +44,84 @@ const isValidDate = (inputExpirationDateValue) => {
   return false;
 };
 
-const isValidInputDate = (inputExpirationDate) => {
-  const isValidExpirationDate = isValidDate(inputExpirationDate.value);
-  const errorMessageBlockFromDom = document.
-    querySelector('.error-message-block');
-
-  if (!isValidExpirationDate) {
-    const blockWithError = createBlockWithError('Введите корректную дату');
-    inputExpirationDate.after(blockWithError);
-  }
-
-  if (errorMessageBlockFromDom) {
-    errorMessageBlockFromDom.remove();
+// Добавить блок с сообщением об ошибке
+const addErrorMessageBlock = (className, message, inputElement) => {
+  const errorMessageBlock = document.querySelector(`.${className}`);
+  if (!errorMessageBlock) {
+    const blockWithError = createBlockWithError(className, message);
+    inputElement.after(blockWithError);
   }
 };
 
-const namePattern = /^([A-Za-z]{2,}\s){1,}([A-Za-z]{2,}){1}$/;
+// Удалить блок с сообщением об ошибке
+const removeErrorMessageBlock = (className) => {
+  const errorMessageBlock = document.querySelector(`.${className}`);
+  if (errorMessageBlock) {
+    errorMessageBlock.remove();
+  }
+};
+
+const isValidInputDate = (inputExpirationDate) => {
+  const isValidExpirationDate = isValidDate(inputExpirationDate.value);
+  const className = 'error-message-block_date';
+
+  if (!isValidExpirationDate) {
+    addErrorMessageBlock(
+      className,
+      'Введите корректную дату',
+      inputExpirationDate,
+    );
+  } else {
+    removeErrorMessageBlock(className);
+  }
+};
+
+const isValidName = (inputName) => {
+  const namePattern = /^([A-Za-z]{2,}\s){1,}([A-Za-z]{2,}){1}$/;
+  const isValidName = namePattern.test(inputName);
+
+  return isValidName;
+};
 
 const isValidInputName = (inputName) => {
-  const isValidName = namePattern.test(inputName.value);
-  const errorMessageBlockFromDom = document.
-    querySelector('.error-message-block');
+  const isValid = isValidName(inputName.value);
+  const className = 'error-message-block_name';
 
-  if (!isValidName) {
-    const blockWithError = createBlockWithError(
-      'Введите корректное полное имя',
-    );
-    inputName.after(blockWithError);
+  if (!isValid) {
+    addErrorMessageBlock(className, 'Введите корректное полное имя', inputName);
+  } else {
+    removeErrorMessageBlock(className);
   }
+};
 
-  if (errorMessageBlockFromDom) {
-    errorMessageBlockFromDom.remove();
+const isValidInputCardNumber = (inputCardNumber) => {
+  const cardNumber = inputCardNumber.value.replace(/[^0-9]/g, '');
+  const isValid = isValidCardNumber(cardNumber);
+  const className = 'error-message-block_card';
+
+  if (!isValid) {
+    addErrorMessageBlock(
+      className,
+      'Введите корректный номер карты',
+      inputCardNumber,
+    );
+  } else {
+    removeErrorMessageBlock(className);
+  }
+};
+
+const isValidInputSecurityCode = (inputSecurityCode) => {
+  const isValid = isValidCVC(inputSecurityCode.value);
+  const className = 'error-message-block_cvc';
+
+  if (!isValid) {
+    addErrorMessageBlock(
+      className,
+      'Введите корректный CVC',
+      inputSecurityCode,
+    );
+  } else {
+    removeErrorMessageBlock(className);
   }
 };
 
@@ -78,7 +145,7 @@ const controlInputValue = ({
     nameBack.textContent = inputName.value;
   });
 
-  formContainer.addEventListener('input', ({target}) => {
+  formContainer.addEventListener('input', ({ target }) => {
     const existingBankLogo = document.querySelector('#bank-logo');
     const existingBrandLogo = document.querySelector('#brand-logo');
     const pathLightColor = document.querySelector('.lightcolor');
@@ -136,8 +203,12 @@ const controlInputValue = ({
   });
 
   inputName.addEventListener('blur', () => isValidInputName(inputName));
+  inputCardNumber.addEventListener('blur', () =>
+    isValidInputCardNumber(inputCardNumber));
   inputExpirationDate.addEventListener('blur', () =>
     isValidInputDate(inputExpirationDate));
+  inputSecurityCode.addEventListener('blur', () =>
+    isValidInputSecurityCode(inputSecurityCode));
 
   const maskCardNumber = new Inputmask('9999 9999 9999 9999', {
     placeholder: ' ',
@@ -159,6 +230,35 @@ const controlInputValue = ({
   });
 
   maskSecurity.mask(inputSecurityCode);
+
+
+  const startValidationButton = document.querySelector('.form__submit');
+  const validationMessage = document.querySelector('.validation-message-block');
+
+  // Запуск валидации полей формы
+  startValidationButton.addEventListener('click', () => {
+    const isValidFullname = isValidName(inputName.value);
+    const cardNumber = inputCardNumber.value.replace(/\s/g, '');
+    const isValidCard = isValidCardNumber(cardNumber);
+    const isValidCode = isValidCVC(inputSecurityCode.value);
+    const isValidExpiration = isValidDate(inputExpirationDate.value);
+
+    if (isValidFullname && isValidCard && isValidCode && isValidExpiration) {
+      validationMessage.textContent = 'Данные валидные ';
+    } else {
+      validationMessage.textContent = 'Данные невалидные';
+    }
+
+    // Скрыть сообщение через 2 секунды
+    setTimeout(() => {
+      validationMessage.textContent = '';
+    }, 2000);
+  });
 };
 
-export default controlInputValue;
+export {
+  controlInputValue,
+  isValidCardNumber,
+  isValidName,
+  isValidCVC,
+};
