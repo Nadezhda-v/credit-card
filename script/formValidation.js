@@ -244,7 +244,7 @@ const controlInputValue = ({
     const isValidExpiration = isValidDate(inputExpirationDate.value);
 
     if (isValidFullname && isValidCard && isValidCode && isValidExpiration) {
-      validationMessage.textContent = 'Данные валидные ';
+      validationMessage.textContent = 'Данные валидные';
     } else {
       validationMessage.textContent = 'Данные невалидные';
     }
