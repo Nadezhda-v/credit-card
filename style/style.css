@@ -34,10 +34,20 @@ body {
 
 .form-container .field-container:nth-of-type(3) {
   grid-area: expiration;
+  width: 160px; 
 }
 
 .form-container .field-container:nth-of-type(4) {
   grid-area: security;
+  width: 230px;
+}
+
+.form-container .field-container:nth-of-type(5) {
+  grid-area: validation;
+}
+
+.form-container .field-container:nth-of-type(6) {
+  grid-area: submit;
 }
 
 .field-container input {
@@ -54,7 +64,7 @@ body {
   grid-column-gap: 10px;
   grid-template-columns: auto auto;
   grid-template-rows: 90px 90px 90px;
-  grid-template-areas: "name name" "number number" "expiration security";
+  grid-template-areas: "name name" "number number" "expiration security" "validation submit";
   max-width: 400px;
   padding: 20px;
   color: #707070;
@@ -291,4 +301,17 @@ input {
 .creditcard.flipped {
   -webkit-transform: rotateY(180deg);
   transform: rotateY(180deg);
+}
+
+.form__submit {
+  font-size: 16px;
+  padding: 5px 20px;
+  cursor: pointer;
+  color: #47525d;;
+}
+
+.validation-message-block {
+  margin: 0;
+  font-size: 16px;
+  white-space: nowrap;
 }

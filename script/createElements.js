@@ -5,15 +5,15 @@ import {
 } from 'redom';
 
 const createTitle = () => {
-  const title = el('div', {className: 'payment-title'}, [
+  const title = el('div', { className: 'payment-title' }, [
     el('h1', 'Payment Information')],
   );
   return title;
 };
 
 const createCard = () => {
-  const cardСontainer = el('div', {className: 'container card__container'});
-  const creditCard = el('div', {className: 'creditcard'});
+  const cardСontainer = el('div', { className: 'container card__container' });
+  const creditCard = el('div', { className: 'creditcard' });
 
   const cardNumber = svg('text', 'XXXX XXXX XXXX XXXX', {
     transform: 'matrix(1 0 0 1 60.106 295.0121)',
@@ -33,7 +33,7 @@ const createCard = () => {
     class: 'st2 st5 st9',
   });
 
-  const front = el('div', {className: 'front'}, [
+  const front = el('div', { className: 'front' }, [
     el('div#ccsingle'),
     svg('svg', {
       'version': '1.1',
@@ -126,11 +126,11 @@ const createCard = () => {
               svg('path', {
                 class: 'st12',
                 d: `M125.5,130.8c-10.2,0-18.5-8.3-18.5-18.5c0-4.6,1.7-8.9,
-                4.7-12.3c-3-3.4-4.7-7.7-4.7-12.3c0-10.2,8.3-18.5,18.5-18.5s18.5,8.3,
-                18.5,18.5c0,4.6-1.7,8.9-4.7,12.3c3,3.4,4.7,7.7,4.7,12.3C143.9,
-                122.5,135.7,130.8,125.5,130.8z M125.5,70.8c-9.3,0-16.9,7.6-16.9,
-                16.9c0,4.4,1.7,8.6,4.8,11.8l0.5,0.5l-0.5,0.5c-3.1,3.2-4.8,
-                7.4-4.8,11.8c0,9.3,7.6,16.9,16.9,16.9s16.9-7.6,
+                4.7-12.3c-3-3.4-4.7-7.7-4.7-12.3c0-10.2,8.3-18.5,18.5-18.5s18.5,
+                8.3,18.5,18.5c0,4.6-1.7,8.9-4.7,12.3c3,3.4,4.7,7.7,4.7,
+                12.3C143.9,122.5,135.7,130.8,125.5,130.8z M125.5,70.8c-9.3,
+                0-16.9,7.6-16.9,16.9c0,4.4,1.7,8.6,4.8,11.8l0.5,0.5l-0.5,
+                0.5c-3.1,3.2-4.8,7.4-4.8,11.8c0,9.3,7.6,16.9,16.9,16.9s16.9-7.6,
                 16.9-16.9c0-4.4-1.7-8.6-4.8-11.8l-0.5-0.5l0.5-0.5c3.1-3.2,
                 4.8-7.4,4.8-11.8C142.4,78.4,134.8,70.8,125.5,70.8z`,
               }),
@@ -190,7 +190,7 @@ const createCard = () => {
     class: 'st12 st13',
   });
 
-  const back = el('div', {className: 'back'}, [
+  const back = el('div', { className: 'back' }, [
     svg('svg', {
       'version': '1.1',
       'id': 'cardback',
@@ -212,8 +212,8 @@ const createCard = () => {
         }),
       ]),
       svg('g#Back', [
-        svg('g', {id: 'Page-1_2_'}, [
-          svg('g', {id: 'amex_2_'}, [
+        svg('g', { id: 'Page-1_2_' }, [
+          svg('g', { id: 'amex_2_' }, [
             svg('path', {
               id: 'Rectangle-1_2_',
               class: 'darkcolor',
@@ -232,8 +232,9 @@ const createCard = () => {
         svg('g', [
           svg('path', {
             class: 'st3',
-            d: `M701.1,249.1H48.9c-3.3,0-6-2.7-6-6v-52.5c0-3.3,2.7-6,6-6h652.1c3.3,
-              0,6,2.7,6,6v52.5C707.1,246.4,704.4,249.1,701.1,249.1z`,
+            d: `M701.1,249.1H48.9c-3.3,0-6-2.7-6-6v-52.5c0-3.3,2.7-6,
+              6-6h652.1c3.3,0,6,2.7,6,6v52.5C707.1,246.4,704.4,249.1,
+              701.1,249.1z`,
           }),
           svg('rect', {
             x: '42.9',
@@ -256,7 +257,7 @@ const createCard = () => {
           }),
         ]),
         cardSecurity,
-        svg('g', {className: 'st8'}, [
+        svg('g', { className: 'st8' }, [
           svg('text', 'security code', {
             transform: 'matrix(1 0 0 1 518.083 280.0879)',
             class: 'st9 st6 st10',
@@ -296,8 +297,8 @@ const createCard = () => {
 };
 
 const createForm = () => {
-  const formContainer = el('div', {className: 'form-container'});
-  const inputName = el('input#name', {maxlength: '20', type: 'text'});
+  const formContainer = el('div', { className: 'form-container' });
+  const inputName = el('input#name', { maxlength: '20', type: 'text' });
   const inputCardNumber = el('input#cardnumber', {
     type: 'text',
     inputmode: 'numeric',
@@ -313,20 +314,20 @@ const createForm = () => {
 
   const form = [
     el('div.field-container',
-      el('label', 'Full Name', {for: 'fullname'}),
+      el('label', 'Full Name', { for: 'fullname' }),
       inputName,
     ),
     el('div.field-container',
-      el('label', 'Card Number', {for: 'cardnumber'}),
+      el('label', 'Card Number', { for: 'cardnumber' }),
       inputCardNumber,
       el('div#ccicon.ccicon'),
     ),
     el('div.field-container',
-      el('label', 'Expiration (mm/yy)', {for: 'expirationdate'}),
+      el('label', 'Expiration (mm/yy)', { for: 'expirationdate' }),
       inputExpirationDate,
     ),
     el('div.field-container',
-      el('label', 'Security Code', {for: 'securitycode'}),
+      el('label', 'Security Code', { for: 'securitycode' }),
       inputSecurityCode,
     ),
   ];
@@ -342,9 +343,35 @@ const createForm = () => {
   };
 };
 
-const createBlockWithError = (text) => {
-  const blockWithError = el('span.error-message-block', text);
+const createBlockWithError = (className, text) => {
+  const blockWithError = el(`span.error-message-block.${className}`, text);
   return blockWithError;
+};
+
+const createStartValidationButton = () => {
+  const button = el('button', 'Отправить', {
+    type: 'submit',
+    className: 'button form__submit',
+  });
+
+  const fieldContainer = el('div.field-container', {
+    style: 'display: flex; justify-content: flex-end',
+  },
+  button,
+  );
+
+  return fieldContainer;
+};
+
+const createValidationMessage = () => {
+  const blockWithMessage = el('h2.validation-message-block');
+  const fieldContainer = el('div.field-container', {
+    style: 'display: flex; align-items: center',
+  },
+  blockWithMessage,
+  );
+
+  return fieldContainer;
 };
 
 export {
@@ -352,4 +379,6 @@ export {
   createCard,
   createForm,
   createBlockWithError,
+  createStartValidationButton,
+  createValidationMessage,
 };

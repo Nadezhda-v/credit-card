@@ -1,11 +1,14 @@
 import {
   setChildren,
+  mount,
 } from 'redom';
 
 import {
   createTitle,
   createCard,
   createForm,
+  createStartValidationButton,
+  createValidationMessage,
 } from './createElements.js';
 
 const renderPage = () => {
@@ -27,6 +30,11 @@ const renderPage = () => {
     inputSecurityCode,
   } = createForm();
 
+  const startValidationButton = createStartValidationButton();
+  const validationMessage = createValidationMessage();
+
+  mount(formContainer, validationMessage);
+  mount(formContainer, startValidationButton);
   setChildren(document.body, [title, cardСontainer, formContainer]);
 
   return {
