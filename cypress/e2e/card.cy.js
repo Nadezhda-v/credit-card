@@ -33,27 +33,27 @@ describe('Тестирование банковской карты, ввод н�
     cy.get('#name').type('Иван/ Roh');
     cy.get('#name').should('have.value', ' Roh');
     cy.get('.form__submit').click();
-    cy.get('.validation-message-block').should('contain', 'Данные невалидные');
+    cy.get('.error-message-block_name').should('be.visible');
   });
 
   it('Ввод некорректного номера карты', () => {
     cy.get('#cardnumber').type('и/448363R 64848');
     cy.get('#cardnumber').should('have.value', '4483 6364 848      ');
     cy.get('.form__submit').click();
-    cy.get('.validation-message-block').should('contain', 'Данные невалидные');
+    cy.get('.error-message-block_card').should('be.visible');
   });
 
   it('Ввод некорректной даты истечения срока карты', () => {
     cy.get('#expirationdate').type('1333');
     cy.get('#expirationdate').should('have.value', '13/33');
     cy.get('.form__submit').click();
-    cy.get('.validation-message-block').should('contain', 'Данные невалидные');
+    cy.get('.error-message-block_date').should('be.visible');
   });
 
   it('Ввод некорректного кода безопасности', () => {
     cy.get('#securitycode').type('a1/');
     cy.get('#securitycode').should('have.value', '1  ');
     cy.get('.form__submit').click();
-    cy.get('.validation-message-block').should('contain', 'Данные невалидные');
+    cy.get('.error-message-block_cvc').should('be.visible');
   });
 });
